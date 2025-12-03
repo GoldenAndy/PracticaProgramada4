@@ -1,0 +1,46 @@
+﻿@model List<PracticaProgramada4_G4.Models.Cliente>
+
+<div class="d-flex align-items-center justify-content-between mb-3">
+    <form id="formFiltroListado" class="d-flex gap-2" role="search">
+        <input type="text" name="nombre" class="form-control" placeholder="Filtrar por nombre…"
+               value="@(Context.Request.Query["nombre"].ToString())" />
+        <button class="btn btn-primary" type="submit">Buscar</button>
+        <a class="btn btn-outline-secondary" href="javascript:void(0)"
+           onclick="document.querySelector('#formFiltroListado input[name=nombre]').value=''; document.querySelector('#formFiltroListado').dispatchEvent(new Event('submit',{cancelable:true,bubbles:true}));">
+            Limpiar
+        </a>
+    </form>
+</div>
+
+@if (Model is null || Model.Count == 0)
+{
+    <div class="alert alert-info mb-0">
+        No hay clientes para mostrar con el criterio actual.
+    </div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-sm table-hover align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th style="width:28%">ID</th>
+                    <th>Nombre</th>
+                    <th style="width:12%">Edad</th>
+                    <th style="width:25%">Ciudad</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var c in Model)
+                {
+                    <tr>
+                        <td><code>@c._id</code></td>
+                        <td>@c.Nombre</td>
+                        <td>@(c.Edad?.ToString() ?? "—")</td>
+                        <td>@(string.IsNullOrWhiteSpace(c.Ciudad) ? "—" : c.Ciudad)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
