@@ -1,11 +1,9 @@
-﻿// wwwroot/js/clientes.js
-(() => {
+﻿(() => {
     const ZONA_LISTADO = document.getElementById("zonaListado");
     const ZONA_INSERTAR = document.getElementById("zonaInsertar");
     const ZONA_ACT_ELIM = document.getElementById("zonaActualizarEliminar");
     const ALERT_GLOBAL = document.getElementById("alertGlobal");
 
-    // ---------- UI ----------
     function setAlert(type, text) {
         if (!ALERT_GLOBAL) return;
         ALERT_GLOBAL.className = `alert alert-${type}`;
@@ -80,7 +78,6 @@
         await loadPartial(ZONA_LISTADO, `/Home/ComponenteListado${qs}`, "Actualizando listado…");
     }
 
-    // ---------- Carga inicial (secuencial para poder cablear listeners) ----------
     async function autoload() {
         await loadPartial(ZONA_LISTADO, "/Home/ComponenteListado", "Cargando listado…");
         await loadPartial(ZONA_INSERTAR, "/Home/ComponenteInsertar", "Cargando formulario…");
@@ -88,26 +85,25 @@
 
         wireListado();
         wireInsertar();
-        wireActualizarEliminar(); // <— aquí bindo a #formActualizarId y #formEliminarId
+        wireActualizarEliminar(); 
     }
 
-    // ---------- Listado ----------
+
     function wireListado() {
-        // Filtro
+
         const formFiltro = ZONA_LISTADO?.querySelector("#formFiltroListado");
         formFiltro?.addEventListener("submit", async (ev) => {
             ev.preventDefault();
             const nombre = (new FormData(formFiltro).get("nombre") || "").toString().trim();
             const qs = nombre ? `?nombre=${encodeURIComponent(nombre)}` : "";
             await loadPartial(ZONA_LISTADO, `/Home/ComponenteListado${qs}`, "Filtrando…");
-            wireListado(); // re-cableo por si el partial se volvió a renderizar
-            wireIdCopy();  // y el click de ID de nuevo
+            wireListado(); 
+            wireIdCopy(); 
         });
 
         wireIdCopy();
     }
 
-    // Click en ID para autocompletar formularios por ID
     function wireIdCopy() {
         ZONA_LISTADO?.querySelectorAll(".js-copiar-id").forEach(btn => {
             btn.addEventListener("click", () => {
@@ -122,7 +118,7 @@
         });
     }
 
-    // ---------- Insertar ----------
+
     function wireInsertar() {
         const form = ZONA_INSERTAR?.querySelector("#formInsertar");
         form?.addEventListener("submit", async (ev) => {
@@ -148,7 +144,7 @@
         });
     }
 
-    // ---------- Actualizar / Eliminar por ID ----------
+
     function wireActualizarEliminar() {
         const formUpd = ZONA_ACT_ELIM?.querySelector("#formActualizarId");
         const formDel = ZONA_ACT_ELIM?.querySelector("#formEliminarId");

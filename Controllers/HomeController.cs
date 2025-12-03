@@ -33,7 +33,7 @@ namespace PracticaProgramada4_G4.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        // ============= PARTIALS =============
+
         [HttpGet]
         public async Task<IActionResult> ComponenteListado(string? nombre)
         {
@@ -58,7 +58,7 @@ namespace PracticaProgramada4_G4.Controllers
         [HttpGet]
         public IActionResult ComponenteActualizarEliminar() => PartialView("_ComponenteActualizarEliminar");
 
-        // Herramienta de diagnóstico del API (opcional)
+
         [HttpGet]
         public async Task<IActionResult> PingApi(string? nombre)
         {
@@ -73,7 +73,7 @@ namespace PracticaProgramada4_G4.Controllers
             return Content($"STATUS {(int)resp.StatusCode}\n{body}", "text/plain");
         }
 
-        // ============= ACCIONES AJAX =============
+
         [HttpPost]
         public async Task<IActionResult> InsertarCliente([FromForm] string nombre, [FromForm] int edad)
         {
@@ -89,7 +89,7 @@ namespace PracticaProgramada4_G4.Controllers
             }
         }
 
-        // SOLO por ID
+
         [HttpPost]
         public async Task<IActionResult> ActualizarPorId(
             [FromForm] string id,
@@ -102,7 +102,7 @@ namespace PracticaProgramada4_G4.Controllers
                 if (!IsValidObjectId(id))
                     return BadRequest(new { ok = false, msg = "El id no tiene formato válido de ObjectId (24 hex)." });
 
-                // Al menos un campo a modificar
+
                 if (string.IsNullOrWhiteSpace(nombreNuevo) && !edad.HasValue && string.IsNullOrWhiteSpace(ciudad))
                     return BadRequest(new { ok = false, msg = "Indica al menos un campo a actualizar." });
 
@@ -134,11 +134,10 @@ namespace PracticaProgramada4_G4.Controllers
             }
         }
 
-        // ============= Helpers =============
         private static bool IsValidObjectId(string? id)
         {
             if (string.IsNullOrWhiteSpace(id) || id.Length != 24) return false;
-            // 24 caracteres hexadecimales
+
             return Regex.IsMatch(id, "^[0-9a-fA-F]{24}$");
         }
     }
