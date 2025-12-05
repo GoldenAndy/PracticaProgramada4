@@ -2,47 +2,52 @@
     ViewData["Title"] = "Clientes – Práctica Programada 4";
 }
 
-<div class="container py-4">
-    <h1 class="mb-4">Gestión de Clientes</h1>
+
+<div class="container py-4 animate-page">
+    <h1 class="page-title-glow-black">Gestión de Clientes</h1>
 
     <div id="alertGlobal" class="alert d-none" role="alert"></div>
 
-    <div class="row">
-        <div class="col-lg-6 mb-4">
-            <div class="card shadow-sm">
-                <div class="card-header">
-                    <strong>Listado de clientes</strong>
+    <div class="row g-4">
+        <!-- Listado -->
+        <div class="col-lg-6">
+            <div class="card shadow-lg elegant-card animate-section">
+                <div class="card-header bg-gradient-primary text-white fw-semibold">
+                    <i class="bi bi-people-fill me-2"></i> Listado de Clientes
                 </div>
                 <div class="card-body" id="zonaListado">
-                    <div class="text-center py-4">
-                        <div class="spinner-border" role="status" aria-hidden="true"></div>
-                        <div class="mt-2">Cargando listado…</div>
+                    <div class="loading-box">
+                        <div class="spinner-border" role="status"></div>
+                        <p class="mt-2">Cargando listado…</p>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Insertar + Actualizar -->
         <div class="col-lg-6">
-            <div class="card shadow-sm mb-4">
-                <div class="card-header">
-                    <strong>Insertar cliente</strong>
+            <!-- Insertar -->
+            <div class="card shadow-lg elegant-card mb-4 animate-section">
+                <div class="card-header bg-gradient-success text-white fw-semibold">
+                    <i class="bi bi-person-plus-fill me-2"></i> Insertar Cliente
                 </div>
                 <div class="card-body" id="zonaInsertar">
-                    <div class="text-center py-4">
-                        <div class="spinner-border" role="status" aria-hidden="true"></div>
-                        <div class="mt-2">Cargando formulario de inserción…</div>
+                    <div class="loading-box">
+                        <div class="spinner-border" role="status"></div>
+                        <p class="mt-2">Cargando formulario…</p>
                     </div>
                 </div>
             </div>
 
-            <div class="card shadow-sm">
-                <div class="card-header">
-                    <strong>Actualizar y eliminar</strong>
+            <!-- Actualizar / Eliminar -->
+            <div class="card shadow-lg elegant-card animate-section">
+                <div class="card-header bg-gradient-warning text-white fw-semibold">
+                    <i class="bi bi-pencil-square me-2"></i> Actualizar / Eliminar
                 </div>
                 <div class="card-body" id="zonaActualizarEliminar">
-                    <div class="text-center py-4">
-                        <div class="spinner-border" role="status" aria-hidden="true"></div>
-                        <div class="mt-2">Cargando formulario de actualización y eliminación…</div>
+                    <div class="loading-box">
+                        <div class="spinner-border" role="status"></div>
+                        <p class="mt-2">Cargando formulario…</p>
                     </div>
                 </div>
             </div>
@@ -53,3 +58,10 @@
 @section Scripts {
     <script src="~/js/clientes.js" asp-append-version="true"></script>
 }
+
+
+
+
+
+
+

@@ -1,46 +1,69 @@
 ﻿@model List<PracticaProgramada4_G4.Models.Cliente>
 
-<div class="d-flex align-items-center justify-content-between mb-3">
-    <form id="formFiltroListado" class="d-flex gap-2" role="search">
-        <input type="text" name="nombre" class="form-control" placeholder="Filtrar por nombre…"
-               value="@(Context.Request.Query["nombre"].ToString())" />
-        <button class="btn btn-primary" type="submit">Buscar</button>
-        <a class="btn btn-outline-secondary" href="javascript:void(0)"
-           onclick="document.querySelector('#formFiltroListado input[name=nombre]').value=''; document.querySelector('#formFiltroListado').dispatchEvent(new Event('submit',{cancelable:true,bubbles:true}));">
-            Limpiar
-        </a>
-    </form>
+<div class="col-12 animate-section" style="animation-delay:.2s;">
+    <div class="card-clean">
+
+        <div class="section-title">
+            <i class="bi bi-list-ul"></i> Listado de Clientes
+        </div>
+
+        <!-- FILTRO -->
+        <form id="formFiltroListado" class="d-flex flex-wrap gap-2 mb-3">
+            <input type="text" name="nombre" class="form-control" style="max-width:260px;"
+                   placeholder="Filtrar por nombre…"
+                   value="@(Context.Request.Query["nombre"].ToString())">
+
+            <button class="btn btn-outline-dark btn-custom" type="submit">
+                <i class="bi bi-search"></i> Buscar
+            </button>
+
+            <button class="btn btn-outline-secondary btn-custom" type="button"
+                    onclick="document.querySelector('#formFiltroListado input[name=nombre]').value='';
+                             document.querySelector('#formFiltroListado').dispatchEvent(new Event('submit',{cancelable:true,bubbles:true}));">
+                <i class="bi bi-x-circle"></i> Limpiar
+            </button>
+        </form>
+
+        <!-- LISTADO -->
+        @if (Model is null || Model.Count == 0)
+        {
+            <div class="alert alert-dark mb-0">
+                <i class="bi bi-exclamation-circle"></i> No hay clientes con ese criterio.
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-sm table-hover align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th style="width:28%">ID</th>
+                            <th>Nombre</th>
+                            <th style="width:12%">Edad</th>
+                            <th style="width:25%">Ciudad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var c in Model)
+                        {
+                            <tr>
+                                <td><code>@c._id</code></td>
+                                <td>@c.Nombre</td>
+                                <td>@(c.Edad?.ToString() ?? "—")</td>
+                                <td>@(string.IsNullOrWhiteSpace(c.Ciudad) ? "—" : c.Ciudad)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+
+    </div>
 </div>
 
-@if (Model is null || Model.Count == 0)
-{
-    <div class="alert alert-info mb-0">
-        No hay clientes para mostrar con el criterio actual.
-    </div>
-}
-else
-{
-    <div class="table-responsive">
-        <table class="table table-sm table-hover align-middle">
-            <thead class="table-light">
-                <tr>
-                    <th style="width:28%">ID</th>
-                    <th>Nombre</th>
-                    <th style="width:12%">Edad</th>
-                    <th style="width:25%">Ciudad</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var c in Model)
-                {
-                    <tr>
-                        <td><code>@c._id</code></td>
-                        <td>@c.Nombre</td>
-                        <td>@(c.Edad?.ToString() ?? "—")</td>
-                        <td>@(string.IsNullOrWhiteSpace(c.Ciudad) ? "—" : c.Ciudad)</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
-}
+
+
+
+
+
+
