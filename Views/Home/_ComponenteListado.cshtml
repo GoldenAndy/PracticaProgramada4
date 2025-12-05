@@ -47,7 +47,22 @@
                         @foreach (var c in Model)
                         {
                             <tr>
-                                <td><code>@c._id</code></td>
+                                <td>
+                                    @*Si el cliente tiene un id valido, el id en la tabla se convierte en un boton*@
+                                    @if (!string.IsNullOrWhiteSpace(c._id))
+                                    {@*El boton guarda el id, nombre y edad en atributos html*@
+                                        <button type="button" class="btn btn-link p-0 m-0 align-baseline js-id-click" style="cursor:pointer;" data-id="@c._id" data-nombre="@c.Nombre" data-edad="@(c.Edad?.ToString() ?? "")" data-ciudad="@c.Ciudad">
+
+                                            @*Se muestra el id en la tabla*@
+                                            <code>@c._id</code>
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        @*Si el usuario no tuviera id, se pone un "-" como null*@
+                                        <code>—</code>
+                                    }
+                                </td>
                                 <td>@c.Nombre</td>
                                 <td>@(c.Edad?.ToString() ?? "—")</td>
                                 <td>@(string.IsNullOrWhiteSpace(c.Ciudad) ? "—" : c.Ciudad)</td>

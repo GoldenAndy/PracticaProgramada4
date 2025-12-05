@@ -57,6 +57,38 @@
 
 @section Scripts {
     <script src="~/js/clientes.js" asp-append-version="true"></script>
+    <script>
+        document.addEventListener('click', function (e) {//listener para los clicks
+
+            const btn = e.target.closest('.js-id-click');//busca si se le da click al id
+            if (!btn) return;//si no se le da click a un id, para el script
+
+            //Lee los atributos del cliente al que se le dio click
+            const id = btn.dataset.id || '';
+            const nombre = btn.dataset.nombre || '';
+            const edad = btn.dataset.edad || '';
+            const ciudad = btn.dataset.ciudad || '';
+
+            //actualizar
+            const txtIdAct = document.getElementById('txtIdActualizar');
+            const txtNomAct = document.getElementById('txtNombreActualizar');
+            const txtEdadAct = document.getElementById('txtEdadActualizar');
+            const txtCiuAct = document.getElementById('txtCiudadActualizar');
+
+            //toma los atributos que guardo y llena el form de actualizar
+            if (txtIdAct) txtIdAct.value = id;
+            if (txtNomAct) txtNomAct.value = nombre;
+            if (txtEdadAct) txtEdadAct.value = edad;
+            if (txtCiuAct) txtCiuAct.value = ciudad;
+
+            //para resaltar el campo del id que se rellena
+            if (txtIdAct) txtIdAct.focus();
+
+            //eliminar
+            const txtIdDel = document.getElementById('txtIdEliminar');
+            if (txtIdDel) txtIdDel.value = id;
+        });
+    </script>
 }
 
 
